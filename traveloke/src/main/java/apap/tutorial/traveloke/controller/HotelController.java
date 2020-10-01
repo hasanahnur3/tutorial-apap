@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-public class HotelController {
+public class HotelController implements ErrorController{
     @Autowired
     private HotelService hotelService;
 
@@ -104,6 +105,18 @@ public class HotelController {
         model.addAttribute("hotel", hotel);
 
         return "delete-hotel-success";
+    }
+
+    private static final String PATH = "/error";
+
+    @RequestMapping(value = PATH)
+    public String error() {
+        return "error.html";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return PATH;
     }
     
 
