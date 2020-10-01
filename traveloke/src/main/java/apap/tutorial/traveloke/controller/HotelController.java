@@ -1,10 +1,12 @@
 package apap.tutorial.traveloke.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -54,7 +56,7 @@ public class HotelController {
     }
 
 
-    @RequestMapping("hotel/view")
+    @RequestMapping("/hotel/view")
     public String detailHotel(
         @RequestParam(value= "idHotel") String idHotel,
         Model model){
@@ -65,5 +67,44 @@ public class HotelController {
 
             return "view-hotel";
         }
+    
+    @RequestMapping("/hotel/view/id-hotel/{idHotel}")
+    public String detailHotelWithPathVariable(
+        @PathVariable(value = "idHotel") String idHotel,
+        Model model){
+        HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
+
+        model.addAttribute("hotel", hotel);
+
+        return "view-hotel";
+    }
+
+    @RequestMapping("/hotel/update/id-hotel/{idHotel}/no-telepon/{noTelepon}")
+    public String changeTelephoneNumber(
+        @PathVariable(value = "idHotel") String idHotel,
+        @PathVariable(value = "noTelepon") String noTelepon,
+        Model model){
+
+        HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
+        hotel.setNoTelepon(noTelepon);
+
+        model.addAttribute("hotel", hotel);
+
+        return "change-telephone-number-success";
+    }
+
+    @RequestMapping("/hotel/delete/id-hotel/{idHotel}")
+    public String deleteHotelWithPathVariable(
+        @PathVariable(value = "idHotel") String idHotel,
+        Model model){
+
+        HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
+        hotelService.deleteHotelByIdHotel(idHotel);
+
+        model.addAttribute("hotel", hotel);
+
+        return "delete-hotel-success";
     }
     
+
+}

@@ -8,5 +8,6 @@ public interface HotelService {
     void addHotel(HotelModel hotel);
     List<HotelModel> getHotelList();
     HotelModel getHotelByIdHotel(String idHotel);
+    HotelModel deleteHotelByIdHotel(String idHotel);
     
 }

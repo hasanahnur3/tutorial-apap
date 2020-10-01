@@ -37,6 +37,17 @@ public class HotelInMemoryService implements HotelService {
         return null;
     }
 
+    @Override
+    public HotelModel deleteHotelByIdHotel(String idHotel){
+        for(HotelModel hotel : listHotel){
+            if (hotel.getIdHotel().contentEquals(idHotel)){
+                listHotel.remove(hotel);
+                return hotel;
+            }
+        }
+        return null;
+    }
+
 
     
 }
