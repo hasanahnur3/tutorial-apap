@@ -48,6 +48,11 @@ public class HotelInMemoryService implements HotelService {
         return null;
     }
 
+    @Override
+    public void deleteAll(){
+        listHotel.clear();
+    }
+
 
     
 }

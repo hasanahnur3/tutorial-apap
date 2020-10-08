@@ -81,3 +81,6 @@ Pertanyaan 4
 Dengan pathvariable
 http://localhost:8080/hotel/view?idHotel=1
 Dengan requestparam
+http://localhost:8080/hotel/view?idHotel=1
+
+Pertanyaan 5

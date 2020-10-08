@@ -9,5 +9,6 @@ public interface HotelService {
     List<HotelModel> getHotelList();
     HotelModel getHotelByIdHotel(String idHotel);
     HotelModel deleteHotelByIdHotel(String idHotel);
+    void deleteAll();
     
 }
