@@ -56,6 +56,13 @@ public class HotelController implements ErrorController{
         return "viewall-hotel";
     }
 
+    @RequestMapping("hotel/deleteall")
+    public String deleteAll(){
+        hotelService.deleteAll();
+
+        return "deleteall-success";
+    }
+
 
     @RequestMapping("/hotel/view")
     public String detailHotel(
