@@ -63,3 +63,24 @@ http://localhost:8080/onlineshopping/test/hi
 dikemudian hari, dan tambahkan tulisan yang membuat Anda mengerti)
 - [ ] Konsep RESTful api
 - [ ] Flow requestparam dan pathvariable
+
+
+---
+## Tutorial 2
+
+Pertanyaan 1
+Akan terjadi page service error karena controller megarah ke url /hotel/add mereturn html "add-hotel yang belum ada
+
+Pertanyaan 2
+Anotasi @autowire berguna untuk menghubungkan service dengan controller. Dengan anotasi tersebut, controller HotelController.java dapat menjalankan method - method yang ada di class HotelInMemoryService.java. HotelController.java mendeklarasi interface HotelService, kemudian spring akan membuat instansiasi dari interface tersebut sebagai bean sehingga controller dapat menjalankan method - methodnya. 
+
+Pertanyaan 3
+Akan muncul page error dengan status Bad Request 400. Hotel tidak dapat ditambahkan. Hal tersebut karena url tersebut tidak memberikan parameter  nomor telepon yang sifatnya required pada RequestParam.
+
+Pertanyaan 4
+Dengan pathvariable
+http://localhost:8080/hotel/view?idHotel=1
+Dengan requestparam
+
+Pertanyaan 5
+https://ibb.co/n3Vt2kr
