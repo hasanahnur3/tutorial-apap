@@ -17,6 +17,8 @@
     <section>
         <h2>Daftar Kamar:</h2>
 
+        <div th:if="${listKamar.empty}">Hotel ini belum memiliki kamar</div>
+
         <div th:each="kamar : ${listKamar}">
                 <h3 th:text="'No Kamar: ' + ${kamar.noKamar}"></h3>
                 <h3 th:text="'Nama Kamar: ' + ${kamar.namaKamar}"></h3>
@@ -26,8 +28,14 @@
                 <h3 th:if="${kamar.tipe == 2}">Tipe : President Suite</h3>
 
                 <h3 th:text="'Kapasitas kamar: ' + ${kamar.kapasitasKamar}"></h3>
+                <a th:href="@{/kamar/change/{noKamar} (noKamar=${kamar.noKamar})}">Update Kamar Ini</a>
+                <br>
+                <a th:href="@{/kamar/delete/{noKamar} (noKamar=${kamar.noKamar})}">Delete Kamar Ini</a>
+                <hr>
         </div>
 
+        <td><a th:href="@{/hotel/delete/}+${hotel.id}">Delete Hotel</td>
+        <br><br>
         <td><a th:href="@{/kamar/add/}+${hotel.id}">Add Kamar</td>
     </section>
 

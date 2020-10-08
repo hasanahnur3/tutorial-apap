@@ -55,9 +55,14 @@ public class HotelController{
         @PathVariable Long idHotel,
         Model model
     ){
-        HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
-        model.addAttribute("hotel", hotel);
-        return "form-update-hotel";
+        try{
+            HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
+            model.addAttribute("hotel", hotel);
+            return "form-update-hotel";
+        }catch(Exception e){
+            model.addAttribute("id", idHotel);
+            return "error";
+        }
     }
 
     @PostMapping("/hotel/change")
@@ -75,24 +80,47 @@ public class HotelController{
         @RequestParam(value="idHotel") Long idHotel,
         Model model
     ){
-        HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
-        List<KamarModel> listKamar = kamarService.findAllKamarByIdHotel(idHotel);
-        model.addAttribute("hotel", hotel);
-        model.addAttribute("listKamar", listKamar);
-        return "view-hotel";
+        try{
+            HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
+            List<KamarModel> listKamar = kamarService.findAllKamarByIdHotel(idHotel);
+            model.addAttribute("hotel", hotel);
+            model.addAttribute("listKamar", listKamar);
+            return "view-hotel";
+
+        }catch(Exception e){
+            model.addAttribute("id", idHotel);
+            return "error";
+        }
     }
 
-    // private static final String PATH = "/error";
 
-    // @RequestMapping(value = PATH)
-    // public String error() {
-    //     return "error.html";
-    // }
+    @GetMapping("/hotel/viewall")
+    public String viewAllHotel(Model model){
+        List<HotelModel> listHotel = hotelService.getHotelList();
+        model.addAttribute("listHotel", listHotel);
+        return "viewall";
+    }
 
-    // @Override
-    // public String getErrorPath() {
-    //     return PATH;
-    // }
-    
+    @GetMapping("/hotel/delete/{idHotel}")
+    public String deleteHotel(
+        @PathVariable(value="idHotel") Long idHotel,
+        Model model
+    ){
+        try{
+
+            HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
+            List<KamarModel> listKamar = kamarService.findAllKamarByIdHotel(idHotel);
+            if (listKamar.size()==0){
+                hotelService.deleteHotel(hotel);
+                model.addAttribute("hotel", hotel);
+                return "delete-hotel-success";
+            }
+            return "cant-delete-hotel";
+
+        }catch(Exception e){
+            model.addAttribute("id", idHotel);
+            return "error";
+        }
+    }
 
 }
