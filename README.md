@@ -120,3 +120,5 @@ Pada JPA, apabila kita melakukan perubahan pada sebuah objek, maka yang hanya be
 Referensi: https://stackoverflow.com/questions/2990799/difference-between-fetchtype-lazy-and-eager-in-java-persistence-api
 https://www.javatpoint.com/jpa-cascading-operations
 
+### What i have learned today
+Saya menjadi memahami bahwa menggunakan database pada program mudah dengan JPA module. JPA module mempermudah proses CRUD model saya walaupun harus berinteraksi dengan database
