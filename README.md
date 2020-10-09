@@ -84,3 +84,39 @@ Dengan requestparam
 
 Pertanyaan 5
 https://ibb.co/n3Vt2kr
+
+---
+## Tutorial 3
+1. Pada class KamarDb, terdapat method findAllByHotelId, apakah kegunaan dari method tersebut?
+Mehod tersebur bergunaa untuk mengambil seluruh kamar dengan hotel id yang sama pada database lalu dimasukkan ke dalam sebuah list List<KamarModel> lalu me return list tersebut agar dapat digunakan di service dan controller project.
+
+2. Pada class HotelController, jelaskan perbedaan method addHotelFormPage dan addHotelSubmit?
+addHotelForm page adalah method yang menghandle getmapping dari add hotel (@GetMapping("/hotel/add")) sedangkan addHotelSubmit adalah method yang menghandle postmapping dari add hotel (@PostMapping("/hotel/add")).
+
+@GetMapping("/hotel/add") dan addHotelFormPage berfungsi untuk men-generate html berisi form untuk membuat sebuah hotel. Setiap field di form sudah diberikan name sesuai dengan nama atribut ada HotelModels. Form tersebut juga diberikan action untuk direct ke "/hotel/add" ketika button submit dipencet.
+
+@PostMapping("/hotel/add") dan addHotelSubmitberfungsi untuk menerima field2 yang diisi oleh user kemudian membuat instance HotelModel berdasarkan field2 tersebu dan memasukkannya ke database.
+
+3. Jelaskan kegunaan dari JPA Repository!
+Jpa adalah modul yang dimiliki oleh Spring Data. Jpa memungkinkan kita untuk mengambil data dari database melalui query secara manual ssebagai string atau mengambil data secara otomatis melalui nama method. ada banyak Supported keywords dalam nama method seperti and, or, between, lessthan, greaterthan, equals, isnull, isnotnull, orderby, dll. Selain itu, jpa juga menyediakan namedqueries. Untuk menggunakan jpa, kita cukup membuat file respository yaitu interface untuk setiap model yang disimpan di database. Oleh karena itu, pada tutorial kai ini saya membuat file HotelDb.java dan KamarDb.java. Selain itu, jpa juga memungkinkan kita untuk melakukan advanced query dengan bantuan expresion
+Referensi: https://docs.spring.io/spring-data/jpa/docs/1.3.4.RELEASE/reference/html/jpa.repositories.html
+
+4. Sebutkan dan jelaskan di bagian kode mana sebuah relasi antara HotelModel dan KamarModel dibuat?
+Di HotelModel.java
+@OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+Di KamarModel.java 
+@ManyToOne(fetch = FetchType.EAGER, optional = false)
+
+Kedua code tersebut memberi tahu database bahwa relationship antara hotel dan kamar adalah one to many. Sebuah hotel bisa memiliki banyak kamar. mapped by menandakan objek parent atau objek yang memiliki objek yang lainnya. fetch menandakan join antara kedua model tabel (inner join atau left join)
+Referensi: https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/fetch-join.html
+
+5. Jelaskan kegunaan FetchType.LAZY, CascadeType.ALL, dan FetchType.EAGER!
+Pada tutorial ini, saya memiliki dua model yaitu hotel dan kamar. satu hotel bisa memiliki banyak kamar. hotel memiliki atribut untuk hotel dan kamar juga memiliki atribut untuk kamar. Ketika program me load objek hotel dengan FetchType.EAGER, maka program akan meload hotel dengan seluruh kamar yang dimilikinya sekaligus
+
+Jika menggunakan FetchType.LAZY, ketika hotel diload dari database, seluruh kamar yang ia miliki tidak akan ikut diload juga. Tetapi, kamar2 tersebut akan diload apabila dibutuhkan dengan memanggil method yang akan mentrigger query kamar2 dari database dengan id hotel tersebut
+
+Pada JPA, apabila kita melakukan perubahan pada sebuah objek, maka yang hanya berubah hanyalah objek tersebut. Objek lain yang memiliki reationship dengan objek tersebut tidak akan ikut terubah. leh karena itu,  jpa menyediakan javax.persistence.CascadeType yang gunanya adalah menciptakan dependency diantara objek yang berhubungan dengan tipe relationship One-to-One, One-to-Many, Many-to-One, Many-to-Many. CascadeType.ALL menandakan bahwaseluruh operasi atau perubahan yang dilakukan pada class parentnya, akan diaplikasikan juga pada class childnya.
+
+Referensi: https://stackoverflow.com/questions/2990799/difference-between-fetchtype-lazy-and-eager-in-java-persistence-api
+https://www.javatpoint.com/jpa-cascading-operations
+
