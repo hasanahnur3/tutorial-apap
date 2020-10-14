@@ -8,4 +8,6 @@ public interface KamarService {
     KamarModel updateKamar(KamarModel kamar);
     KamarModel getKamarByNoKamar(Long noKamar);
     void deleteKamar(KamarModel kamar);
+    List<KamarModel> getKamarByNamaKamarDanKapasitas (Integer namaKamar, Integer kapasitas);
+
 }
