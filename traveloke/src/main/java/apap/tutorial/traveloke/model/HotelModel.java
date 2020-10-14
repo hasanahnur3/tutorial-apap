@@ -28,6 +28,7 @@ public class HotelModel implements Serializable{
     private Integer nomorTelepon;
 
     @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+    private List<KamarModel> listKamar;
 
 
     public long getId() {
