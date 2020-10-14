@@ -51,7 +51,7 @@ public class KamarServiceImpl implements KamarService{
     }
 
     @Override
-    public List<KamarModel> getKamarByNamaKamarDanKapasitas(Integer namaKamar, Integer kapasitas) {
+    public List<KamarModel> getKamarByNamaKamarDanKapasitas(String namaKamar, Integer kapasitas) {
         return kamarDb.findByNamaKamarAndKapasitas(namaKamar, kapasitas);
     }
 }
