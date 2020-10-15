@@ -1,23 +1,40 @@
 package apap.tutorial.traveloke.model;
 
-public class HotelModel {
-    private String idHotel;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.List;
+
+@Entity
+@Table(name="hotel")
+public class HotelModel implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @NotNull
+    @Size(max=30)
+    @Column(name="namaHotel", nullable = false)
     private String namaHotel;
+
+    @NotNull
+    @Size(max=30)
+    @Column(name="alamat", nullable =  false)
     private String alamat;
-    private String noTelepon;
 
-    public HotelModel(String idHotel, String namaHotel, String alamat, String noTelepon){
-        this.idHotel = idHotel;
-        this.namaHotel = namaHotel;
-        this.alamat = alamat;
-        this.noTelepon = noTelepon;;
-    }
+    @NotNull
+    @Column(name="nomorTelepon", nullable =  false)
+    private Integer nomorTelepon;
 
-    public String getIdHotel() {
-        return this.idHotel;
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+
+
+    public long getId() {
+        return this.id;
     }
-    public void setIdHotel(String idHotel) {
-        this.idHotel = idHotel;
+    public void setId(long idHotel) {
+        this.id = idHotel;
     }
 
     public String getNamaHotel() {
@@ -34,11 +51,11 @@ public class HotelModel {
     	this.alamat = alamat;
     }
 
-    public String getNoTelepon() {
-    	return this.noTelepon;
+    public Integer getNomorTelepon() {
+    	return this.nomorTelepon;
     }
-    public void setNoTelepon(String noTelepon) {
-    	this.noTelepon = noTelepon;
+    public void setNomorTelepon(Integer noTelepon) {
+    	this.nomorTelepon = noTelepon;
     }
 
     

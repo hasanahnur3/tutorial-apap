@@ -1,0 +1,14 @@
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Add Hotel</title>
+</head>
+
+<body>
+    <h2 th:text=" 'Hotel dengan id Hotel ' + ${hotel.id} + ' berhasil diupdate.'"></h2>
+    <h4 th:text=" 'Nama Hotel: ' + ${hotel.namaHotel}"></h4>
+    <h4 th:text=" 'Nomor Telepon: ' + ${hotel.nomorTelepon}"></h4>
+    <a href="/">Kembali</a>
+</body>
+
+</html>
