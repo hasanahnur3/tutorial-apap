@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Form Add Obat</title>
+    <object th:include="fragments/fragment :: css " th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js " th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar(pageName='Add Obat')"></nav>
+    <form th:action="@{/obat/add-multiple}" th:object="${resep}" method="POST">
+        <input type="hidden" th:field="*{noResep}" />
+
+        <div class="container-fluid">
+            <h3>Tambah banyak Obat</h3>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Bentuk</th>
+                            <th>Kuantitas</th>
+                            <th>
+                                <button type="submit" value="Submit" class="btn btn-primary" name="addRow">Add
+                                    Row</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="obat, iterationStatus: *{listObat}">
+                            <td>
+                                <input class="form-control" type="text"
+                                    th:field="*{listObat[${iterationStatus.index}].nama}" />
+                            </td>
+                            <td>
+                                <select th:field="*{listObat[${iterationStatus.index}].bentuk}"
+                                    class="form-control">
+                                    <option value="0">Kapsul</option>
+                                    <option value="1">Tablet</option>
+                                    <option value="2">Sirup</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input class="form-control" type="number"
+                                    th:field="*{listObat[${iterationStatus.index}].kuantitas}" min="0" />
+                            </td>
+                            <td>
+                                <button type="submit" th:value="${iterationStatus.index}" class="btn btn-danger"
+                                    name="deleteRow">Delete
+                                    Row</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="submit" value="Submit" class="btn btn-success text-right"
+                                    name="simpan">Simpan</button>
+                            </td>
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <!-- <script>
+        $("#addrow").click(function () {
+            $("#barisObat").append("<tr><td>" +
+                "<input type='text' class='form-control' name='nama' />" +
+                "</td>" +
+                "<td>" +
+                "<select class='form-control' name='bentuk' placeholder='Nama Obat..'>" +
+                "<option value='0'>Kapsul</option>" +
+                "<option value='1'>Tablet</option>" +
+                "<option value='2'>Sirup</option>" +
+                "</select>" +
+                "</td>" +
+                "<td>" +
+                "<input type='number' class='form-control' name='kuantitas' min='0' value='0'/>" +
+                "</td>" +
+                "<td>" +
+                "<a th:href='@{#}' class='btn btn-danger'>Delete Row</a>" +
+                "</td></tr>");
+        });
+    </script> -->
+</body>
+
+</html>
