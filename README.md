@@ -122,3 +122,86 @@ https://www.javatpoint.com/jpa-cascading-operations
 
 ### What i have learned today
 Saya menjadi memahami bahwa menggunakan database pada program mudah dengan JPA module. JPA module mempermudah proses CRUD model saya walaupun harus berinteraksi dengan database
+
+
+
+1. Jelaskan perbedaan th:include dan th:replace!
+
+th:insert:  memasukkan fragment ke dalam tag host
+th:replace: mengganti tag host dengan konten fragment
+th:include: seperti insert namun hanya memasukkan konten fragmentnya
+
+Contoh Penggunaan:
+
+<body>
+
+<div th:insert="fragments/components :: header"></div>
+
+<div th:replace="fragments/components :: header"></div>
+
+<div th:include="fragments/components :: header"></div>
+
+</body>
+
+
+<body>
+    
+    <div>
+        <header>
+            <h1>Welcome to My Blog</h1>
+        </header>
+    </div>
+    
+    <header>
+        <h1>Welcome to My Blog</h1>
+    </header>
+    
+    <div>
+        <h1>Welcome to My Blog</h1>
+    </div>
+
+</body>
+
+---
+## Tutorial 4
+
+2. Jelaskan apa fungsi dari th:object!
+
+th:action digunakan untuk menyediakan URL untuk POST form dan th:object digunakan untuk mendefinisikan objek apa yang akan disubmit oleh form. Fields yang terdapat pada form tersebut masing-masing didefinisikan dengan th:field=”*{nama}” dimana nama tersebut sama dengan nama atribut objek
+
+
+3. Jelaskan perbedaan dari * dan $ pada saat penggunaan th:object! Kapan harus dipakai?
+${...} adalah variable expression digunakan untuk memasukkan variable di tag html. *{...} adalah selection expression, sama sepertivariabel expression namun mengacu ke objek yang di refer sebelumnya. Selection expression sama saja seperti variable expression kecuali jika digunakan dengan thLobject. Misalnya, <form th: object = "$ {form}">, maka ekspresi * {field} diselesaikan menjadi $ {form.field}. Ini sebagian besar digunakan saat menggunakan atribut th: field saat membuat formulir.
+
+
+
+4. Bagaimana kamu menyelesaikan latihan nomor 3?
+Saya menyelesaikan question nomot 3 dengan cara mengubah tag fragment menjadi menerima parameter kemudian menaruh variabel yang akan digantikan pada konten fragment. Setelah itu, html yang memanggil fragment tersebut juga dimasukkan parameternya
+contoh di fragment:
+<nav th:fragment="navbar(pagename)" class="navbar navbar-expand-lg bg-light">
+
+contoh di html lain:
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+
+
+Referensi 
+https://attacomsian.com/blog/thymeleaf-fragments
+
+
+
+### What I have learned today:
+Thymeleaf
+Thymeleaf adalah open-source java library yang berfungsi untuk engine untuk template HTML dan XML. Thymeleaf adalah server-side template untuk pembuatan web. Thymeleaf ini terintegrasi penuh dengan framework spring. 
+
+Source code html dapat direuse dengan menggunakan fragments. Fragments dapat disematkan di html lain memlalui 3 cara yaitu include, replace, dan insert. Fragments juga memiliki fitur2 lain seperti inclusion expression, flexible layouts, layout inheritance, dll.
+
+Apa perbedaan lab kemarin dengan sekarang?
+Pada lab kali ini saya belajar pada sisi client side untuk membuat tampilan baik. Saya menggunakan bantuan thymeleaf untuk  merancang  template HTML.
+
+### What i dont understand
+1. Bagaimana controller dapat membaca dan membedakan params?
+2. Bagaimana cara memanggil params di dalam method controller?
+3. Bagaimana cara tahu row yang diselect di html dan memberitahukannya ke controller?
+
+
+
