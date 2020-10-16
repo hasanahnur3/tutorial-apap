@@ -8,15 +8,16 @@
 </head>
 
 <body>
+    <div class="card m-5 p-3">
     <nav th:replace="fragments/fragment :: navbar('All Hotel')"></nav>
-    <h2>Daftar Seluruh Hotel</h2>
-    <div th:each="hotel: ${listHotel}">
+    <br><h2>Daftar Seluruh Hotel</h2><br>
+    <!-- <div th:each="hotel: ${listHotel}">
         <h3 th:text=" 'Id Hotel: '+ ${hotel.id}"></h3>
         <h3 th:text=" 'Nama Hotel: '+ ${hotel.namaHotel}"></h3>
         <h3 th:text=" 'Alamat Hotel: '+ ${hotel.alamat}"></h3>
         <h3 th:text=" 'Nomor Telepon: '+ ${hotel.nomorTelepon}"></h3>
         <hr>
-    </div>
+    </div> -->
 
 
 
@@ -47,6 +48,7 @@
             </tr>
         </tbody>        
     </table>
+</div>
 </body>
 
 </html>

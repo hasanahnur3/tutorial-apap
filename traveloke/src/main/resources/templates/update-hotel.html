@@ -8,11 +8,13 @@
 </head>
 
 <body>
+    
+    <div class="card m-5 p-3">
     <nav th:replace="fragments/fragment :: navbar('Update Hotel')"></nav>
-    <h2 th:text=" 'Hotel dengan id Hotel ' + ${hotel.id} + ' berhasil diupdate.'"></h2>
-    <h4 th:text=" 'Nama Hotel: ' + ${hotel.namaHotel}"></h4>
-    <h4 th:text=" 'Nomor Telepon: ' + ${hotel.nomorTelepon}"></h4>
-    <a href="/">Kembali</a>
+    <br><h2 th:text=" 'Hotel dengan id Hotel ' + ${hotel.id} + ' berhasil diupdate.'"></h2>
+    <!-- <h4 th:text=" 'Nama Hotel: ' + ${hotel.namaHotel}"></h4>
+    <h4 th:text=" 'Nomor Telepon: ' + ${hotel.nomorTelepon}"></h4> -->
+</div>
 </body>
 
 </html>

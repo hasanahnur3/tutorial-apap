@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <div class="card m-5 p-3">
     <nav th:replace="fragments/fragment :: navbar('Home')"></nav>
     <!-- <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
         <a th:txt="traveloke" class="navbar-brand font-weight-bold text-primary" href="#"></a>
@@ -32,7 +33,7 @@
     </nav> -->
 
     <div class="container-fluid">
-        <h2>Selamat Datang di Traveloke!</h2>
+        <br><h2>Selamat Datang di Traveloke!</h2><br>
         <a th:href="@{/hotel/view-all}" class="btn btn-primary">View All Hotel</a>
         <a th:href="@{/hotel/add}" class="btn btn-outline-primary">Add Hotel</a>
         <hr>
@@ -59,5 +60,6 @@
         </div>
 
     </div>
+</div>
 </body>
 </html>

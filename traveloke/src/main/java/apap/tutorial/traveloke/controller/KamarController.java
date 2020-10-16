@@ -29,29 +29,6 @@ public class KamarController {
     @Autowired
     private KamarService kamarService;
 
-    // @GetMapping("/kamar/add/{idHotel}")
-    // private String addKamarFormPage(
-    //     @PathVariable Long idHotel,
-    //     Model model
-    // ){
-    //     KamarModel kamar = new KamarModel();
-    //     HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
-    //     kamar.setHotel(hotel);
-    //     model.addAttribute("kamar", kamar);
-
-    //     return "form-add-kamar";
-    // }
-
-    // @PostMapping("/kamar/add")
-    // private String addKamarSubmit(
-    //     @ModelAttribute KamarModel kamar,
-    //     Model model
-    // ){
-    //     kamarService.addKamar(kamar);
-    //     model.addAttribute("kamar", kamar);
-    //     return "add-kamar";
-    // }
-
     @GetMapping("/kamar/change/{noKamar}")
     public String changeKamarFormPage(
             @PathVariable Long noKamar,
@@ -80,26 +57,21 @@ public class KamarController {
     ){
         // System.out.println(hotel.getListKamar().size());
         // System.out.println("TESSSSSSSSSSSSSSSSS");
+        int sum = 0;
         model.addAttribute("kamarCount", hotel.getListKamar().size());
         for(KamarModel kamar: hotel.getListKamar()){
             kamarService.deleteKamar(kamar);
+            sum++;
         }
 
+        model.addAttribute("sum", sum);
         return "delete-kamar-success";
     }
 
     @GetMapping({"/kamar/addmultiple/{idHotel}"})
     private String addMultiHotelFormPage(@PathVariable Optional<Long> idHotel, Model model) {
-        if (!idHotel.isPresent()) {
-                return "kurangParameter-resep";
-        }
         HotelModel hotel;
-        try {
-                hotel = hotelService.getHotelByIdHotel(idHotel.get());
-        } catch (Exception e) {
-                model.addAttribute("idHotel", idHotel.get());
-                return "notfound-resep";
-        }
+        hotel = hotelService.getHotelByIdHotel(idHotel.get());
         ArrayList<KamarModel> temp_kamar = new ArrayList<KamarModel>();
         temp_kamar.add(new KamarModel());
         hotel.setListKamar(temp_kamar);
@@ -109,13 +81,18 @@ public class KamarController {
 
     @PostMapping(value = "/kamar/addmultiple", params = {"simpan"})
     private String simpanMultiKamarSubmit(@ModelAttribute HotelModel hotel, Model model) {
-        
+        int sum = 0;
+
             for (KamarModel kamar : hotel.getListKamar()) {
+                try{
                     kamar.setHotel(hotel);
                     kamarService.addKamar(kamar);
+                    sum++;
+                }catch(Exception e){
+
+                }
             }
-            int jumlah = hotel.getListKamar().size();
-            model.addAttribute("jumlah", jumlah);
+            model.addAttribute("sum", sum);
             return "add-kamar";
     }
 

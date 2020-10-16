@@ -11,18 +11,19 @@
 </head>
 
 <body>
+    <div class="card m-5 p-3">
 <nav th:replace="fragments/fragment :: navbar('View Hotel')"></nav>
 
     <section>
         <h2>Informasi Hotel</h2>
-        <h3 th:text=" 'Id Hotel: '+ ${hotel.id}"></h3>
-        <h3 th:text=" 'Nama Hotel: '+ ${hotel.namaHotel}"></h3>
-        <h3 th:text=" 'Alamat Hotel: '+ ${hotel.alamat}"></h3>
-        <h3 th:text=" 'Nomor Telepon: '+ ${hotel.nomorTelepon}"></h3>
+        <h5 th:text=" 'Id Hotel: '+ ${hotel.id}"></h5>
+        <h5 th:text=" 'Nama Hotel: '+ ${hotel.namaHotel}"></h5>
+        <h5 th:text=" 'Alamat Hotel: '+ ${hotel.alamat}"></h5>
+        <h5 th:text=" 'Nomor Telepon: '+ ${hotel.nomorTelepon}"></h5>
     </section>
-
+    <br>
     <section>
-        <h2>Daftar Kamar:</h2>
+        <h5>Daftar Kamar:</h5>
         <div th:if="${hasKamar}">
             <form th:action="@{/kamar/delete}" th:object="${hotel}" method="POST">
                 <table class="table">
@@ -57,15 +58,15 @@
                         </tr>
                     </tbody>        
                 </table>
-                <button type="submit" class="btn btn-sm btn-danger">Hapus yang dipilih</button>
+                <button type="submit" class="btn  btn-danger">Hapus yang dipilih</button>
             </form>
         </div>
-        <td><a th:href="@{/kamar/addmultiple/}+${hotel.id}">Add Kamar</td>
+        <td><a class="btn btn-primary" th:href="@{/kamar/addmultiple/}+${hotel.id}">Add Kamar</a></td>
 
         
     </section>
 
-
+</div>
 </body>
 
 </html>
