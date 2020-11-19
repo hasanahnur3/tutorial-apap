@@ -2,11 +2,16 @@
 
 <head>
     <title>Add Kamar</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+   
 </head>
 
 <body>
-    <h2 th:text=" 'Kamar dengan nomor kamar ' + ${kamar.noKamar} + ' berhasil ditambahkan.'"></h2>
-    <a href="/">Kembali</a>
+    <div class="card m-5 p-3">
+    <nav th:replace="fragments/fragment :: navbar('Add Kamar')"></nav>
+    <br><h2 th:text=" 'Sebanyak ' + ${sum} + ' kamar berhasil ditambahkan.'"></h2><br>
+</div>
 </body>
 
 </html>

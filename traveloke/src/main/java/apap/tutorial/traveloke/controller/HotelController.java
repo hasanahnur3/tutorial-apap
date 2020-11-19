@@ -83,8 +83,11 @@ public class HotelController{
         try{
             HotelModel hotel = hotelService.getHotelByIdHotel(idHotel);
             List<KamarModel> listKamar = kamarService.findAllKamarByIdHotel(idHotel);
+            boolean hasKamar = false;
+            if(listKamar.size()>0) hasKamar = true;
             model.addAttribute("hotel", hotel);
             model.addAttribute("listKamar", listKamar);
+            model.addAttribute("hasKamar", hasKamar);
             return "view-hotel";
 
         }catch(Exception e){
@@ -94,7 +97,7 @@ public class HotelController{
     }
 
 
-    @GetMapping("/hotel/viewall")
+    @GetMapping("/hotel/view-all")
     public String viewAllHotel(Model model){
         List<HotelModel> listHotel = hotelService.getHotelList();
         model.addAttribute("listHotel", listHotel);

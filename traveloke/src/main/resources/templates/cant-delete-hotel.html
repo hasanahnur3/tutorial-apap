@@ -2,11 +2,18 @@
 
 <head>
     <title>Cant Delete Hotel</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    
 </head>
 
 <body>
+    <div class="card m-5 p-3">
+    <nav th:replace="fragments/fragment :: navbar('Delete Failed')"></nav>
+    <br>
     <h2 th:text=" 'Hotel dengan id Hotel ' + ${idHotel} + ' tidak bisa di delete.'"></h2>
-    <a href="/">Kembali</a>
+    <!-- <a href="/">Kembali</a> -->
+    </div>
 </body>
 
 </html>

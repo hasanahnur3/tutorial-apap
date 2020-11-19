@@ -11,7 +11,7 @@ import java.util.List;
 public class HotelModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private  Long id;
 
     @NotNull
     @Size(max=30)
@@ -20,43 +20,54 @@ public class HotelModel implements Serializable{
 
     @NotNull
     @Size(max=30)
-    @Column(name="alamat", nullable =  false)
+    @Column(name="alamat", nullable = false)
     private String alamat;
 
     @NotNull
-    @Column(name="nomorTelepon", nullable =  false)
+    @Column(name="nomorTelepon", nullable = false)
     private Integer nomorTelepon;
 
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<KamarModel> listKamar;
 
 
-    public long getId() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
-    public void setId(long idHotel) {
-        this.id = idHotel;
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNamaHotel() {
-    	return this.namaHotel;
+        return namaHotel;
     }
+
     public void setNamaHotel(String namaHotel) {
-    	this.namaHotel = namaHotel;
+        this.namaHotel = namaHotel;
     }
 
     public String getAlamat() {
-    	return this.alamat;
+        return alamat;
     }
+
     public void setAlamat(String alamat) {
-    	this.alamat = alamat;
+        this.alamat = alamat;
     }
 
     public Integer getNomorTelepon() {
-    	return this.nomorTelepon;
-    }
-    public void setNomorTelepon(Integer noTelepon) {
-    	this.nomorTelepon = noTelepon;
+        return nomorTelepon;
     }
 
-    
+    public void setNomorTelepon(Integer nomorTelepon) {
+        this.nomorTelepon = nomorTelepon;
+    }
+
+    public List<KamarModel> getListKamar() {
+        return listKamar;
+    }
+
+    public void setListKamar(List<KamarModel> listkamar) {
+        this.listKamar = listkamar;
+    }
 }

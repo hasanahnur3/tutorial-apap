@@ -1,0 +1,139 @@
+package apap.tutorial.haidokter.controller;
+
+import apap.tutorial.haidokter.model.ObatModel;
+import apap.tutorial.haidokter.model.ResepModel;
+import apap.tutorial.haidokter.repository.ObatDb;
+
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import apap.tutorial.haidokter.service.ObatService;
+import apap.tutorial.haidokter.service.ResepService;
+
+@Controller
+public class ObatController {
+        @Qualifier("resepServiceImpl")
+        @Autowired
+        ResepService resepService;
+
+        @Autowired
+        ObatService obatService;
+
+        // pelajarin bro
+        @GetMapping({ "/obat/add/{noResep}", "/obat/add/" })
+        private String addResepFormPage(@PathVariable Optional<Long> noResep, Model model) {
+                if (!noResep.isPresent()) {
+                        return "kurangParameter-resep";
+                }
+                ObatModel obat = new ObatModel();
+                ResepModel resep;
+                try {
+                        resep = resepService.getResepByNomorResep(noResep.get());
+                } catch (NoSuchElementException e) {
+                        model.addAttribute("nomorResep", noResep.get());
+                        return "notfound-resep";
+                }
+
+                obat.setResepModel(resep);
+                model.addAttribute("obat", obat);
+                return "form-add-obat";
+        }
+
+        @GetMapping({ "/obat/add-multiple/{noResep}", "/obat/add/" })
+        private String addMultiResepFormPage(@PathVariable Optional<Long> noResep, Model model) {
+                if (!noResep.isPresent()) {
+                        return "kurangParameter-resep";
+                }
+                ResepModel resep;
+                try {
+                        resep = resepService.getResepByNomorResep(noResep.get());
+                } catch (NoSuchElementException e) {
+                        model.addAttribute("nomorResep", noResep.get());
+                        return "notfound-resep";
+                }
+                ArrayList<ObatModel> tempObat = new ArrayList<ObatModel>();
+                tempObat.add(new ObatModel());
+                resep.setListObat(tempObat);
+                model.addAttribute("resep", resep);
+                return "form-add-multi-obat";
+        }
+
+        @PostMapping(value = "/obat/add-multiple", params = { "addRow" })
+        private String addRowMultiObatSubmit(@ModelAttribute ResepModel resep, Model model) {
+                // nambahin model baru dalam arrlist
+                if (resep.getListObat() == null || resep.getListObat().size() == 0) {
+                        resep.setListObat(new ArrayList<ObatModel>());
+                }
+                resep.getListObat().add(new ObatModel());
+                model.addAttribute("resep", resep);
+                return "form-add-multi-obat";
+        }
+
+        @PostMapping(value = "/obat/add-multiple", params = { "deleteRow" })
+        private String deleteRowMultiObatSubmit(@ModelAttribute ResepModel resep, final HttpServletRequest req,
+                        Model model) {
+                int rowId = Integer.valueOf(req.getParameter("deleteRow"));
+                resep.getListObat().remove(rowId);
+                model.addAttribute("resep", resep);
+                return "form-add-multi-obat";
+        }
+        @PostMapping(value = "/obat/add-multiple", params = { "simpan" })
+        private String simpanMultiObatSubmit(@ModelAttribute ResepModel resep, Model model) {
+                for (ObatModel obat : resep.getListObat()) {
+                        obat.setResepModel(resep);
+                        obatService.addObat(obat);
+                }
+                int jumlah = resep.getListObat().size();
+                model.addAttribute("jumlah", jumlah);
+                return "add-multi-obat";
+        }
+
+        @PostMapping("/obat/add")
+        private String addObatSubmit(@ModelAttribute ObatModel obat, Model model) {
+                obatService.addObat(obat);
+                model.addAttribute("nama", obat.getNama());
+                return "add-obat";
+        }
+
+        @GetMapping("/obat/change/{id}")
+        private String changeObatGet(@PathVariable Long id, Model model) {
+                ObatModel obat = obatService.getObatbyIdObat(id);
+                model.addAttribute("obat", obat);
+                return "form-update-obat";
+        }
+
+        @PostMapping("/obat/change")
+        private String changeObatPost(@ModelAttribute ObatModel obatModel, Model model) {
+                ObatModel obat = obatService.updateObat(obatModel);
+                model.addAttribute("obat", obat);
+                return "update-obat";
+        }
+
+        // @GetMapping("/obat/delete/{id}")
+        // private String deleteObatById(@PathVariable(value = "id") Long id, Model
+        // model) {
+        // ObatModel obat = obatService.getObatbyIdObat(id);
+        // ObatModel obatDeleted = obatService.deleteObat(obat);
+        // model.addAttribute("obat", obatDeleted);
+        // return "delete-obat";
+        // }
+
+        @PostMapping(value = "/obat/delete")
+        public String deleteMenuFormSubmit(@ModelAttribute ResepModel resep, Model model) {
+                model.addAttribute("obatCount", resep.getListObat().size());
+                for (ObatModel obat : resep.getListObat()) {
+                        obatService.deleteObatById(obat.getId());
+                }
+                return "delete-obat";
+        }
+
+}
