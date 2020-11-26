@@ -67,13 +67,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean checkPassword(String password) {
-        System.out.println("aaaaa   " + password);
         boolean atleastOneAlpha = password.matches(".*[a-zA-Z]+.*");
         boolean atleastOneNumber = password.matches(".*[0-9]+.*");
         boolean atleastEightChar = password.length() >= 8;
-        System.out.println("aaaaa   " + atleastOneAlpha);
-        System.out.println("aaaaa   " + atleastOneNumber);
-        System.out.println("aaaaa   " + atleastEightChar);
         return atleastOneAlpha && atleastOneNumber && atleastEightChar;
     }
 }
