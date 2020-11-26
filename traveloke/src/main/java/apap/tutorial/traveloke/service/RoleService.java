@@ -8,5 +8,6 @@ import apap.tutorial.traveloke.model.RoleModel;
 
 public interface RoleService {
     List<RoleModel> findAll();
+    String defineRole(String username);
     
 }
