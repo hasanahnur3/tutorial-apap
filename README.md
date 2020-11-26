@@ -203,5 +203,46 @@ Pada lab kali ini saya belajar pada sisi client side untuk membuat tampilan baik
 2. Bagaimana cara memanggil params di dalam method controller?
 3. Bagaimana cara tahu row yang diselect di html dan memberitahukannya ke controller?
 
+---
+## Tutorial 4
+
+1. Apa itu Postman? Apa kegunaannya?
+Postman adalah sebuat tool yang dapat digunakan untuk memakai / mengetes RESTful API yang dibuat orang lain atau dibuat oleh kita sendiri. Postman menyediakan user interface untuk membuat HTML request tanpa kita harus menulis kode - kode untuk mengetes fungsionalitas sebuah API. Selain itu, postman juga menyediakan user interface untuk membaca response yang didapat. Request yang dapat dilakukan pada postman adalah GET, POST, PUT, DELETE, dan - lain lain. Postman juga dapat mensupport request dengan parameter.
+Referensi:
+https://seesparkbox.com/foundry/api_testing_with_postman
+https://www.guru99.com/postman-tutorial.html
+
+2. Jelaskan fungsi dari anotasi @JsonIgnoreProperties dan @JsonProperty
+
+@JsonIgnoreProperty digunakan dalam class untuk menandakan sebuah properti untuk di ignore. Pada tutorial ini, saya meng-ignore atribut hotel pada objek kamar ketika saya men-serialize sebuah kamar ke dalam benntuk JSON
+@JsonIgnoreProperties(value={"hotel"},allowSetters = true)
+
+@JsonProperty digunakan untuk men - serialize/deserialize sebuah properti ketika kita bekerja dengan non-standard setter getter. @JsonProperty(name) memberitahu ObjectMapper untuk memetakan nama JSON property terhadap nama field di program java (yang dikenakan anotasi)
+https://www.baeldung.com/jackson-ignore-properties-on-serialization
+
+3. Apa kegunaan atribut WebClient?
+WebClient memungkinkan kita menggunakan object mock yang dibutuhkan untuk memverifikasi request URI. WebClient adalah interface yang disediakan oleh Spring Framework berfungsi untuk poin akses utama dari HTTP requests. Modul ini berfungsi untuk membuat akses poin URL dan mengelola request dan response.
+
+4. Apa itu ResponseEntity dan BindingResult? Apa kegunaannya?
+ResponseEntity menggambarkan respon HTTP yang berisi kode status, header, dan isi. ResponseEntity memungkinkan kita untuk mengirim pesan atas sebuah request. Contoh ResponseEntity yang saya buat pada tutorial ini:
+ResponseEntity.ok("Hotel with ID " + String.valueOf(idHotel) + " Deleted!")
+
+ BindingResult merupakan objek Spring yang menyimpan hasil dari validasi, binding, dan error atas model objek yang divalidasikan. BindingResult diletakkan setelah parameter objek validasi di Controller sebagai argumen untuk melakukan validasi dari Validator.
+Referensi : 
+https://www.baeldung.com/spring-response-entity
+https://stackoverflow.com/questions/10413886/what-is-the-use-of-bindingresult-interface-in-spring-mvc
+
+### What I have learned today:
+RESTful Api
+REST (Representional State Transfer) adalah suatu arsitektur metode komunikasi yang menggunakan protokol HTTP untuk pertukaran data (sering digunakan dalam pengembangan aplikasi). REST memanfaatkan metode - metode di HTTP seperti get, post, dan lain - lain
+
+### What i dont understand
+1. Apa fungsi example di postman?
+2. Bagaimana cara memberikan interface / frontend pada tutorial ini?
+
+
+
+
+
 
 
