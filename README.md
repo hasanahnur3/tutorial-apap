@@ -240,6 +240,47 @@ REST (Representional State Transfer) adalah suatu arsitektur metode komunikasi y
 1. Apa fungsi example di postman?
 2. Bagaimana cara memberikan interface / frontend pada tutorial ini?
 
+---
+## Tutorial 5
+
+1. Jelaskan secara singkat perbedaan Otentikasi dan Otorisasi! Di bagian mana (dalam kode yang telah anda
+buat) konsep tersebut diimplementasi?
+Otentikasi adalah proses memverifikasi siapa yang masuk ke sistem. Saat user masuk ke sistem dengan username dan password, sistem sedang melakukan otentikasi. Otorisasi adalah proses memverifikasi bahwa user memiliki akses ke sesuatu halaman / method.
+Otentikasi diimplementasikan pada halaman login dimana verifikasi username dengan password di check menggunakan configAuthentication, sedangkan otorisasi diatur menggunakan .hasAuthority pada WebSecurityConifg.java.
+
+ 2. Apa itu BCryptPasswordEncoder? Jelaskan secara singkat cara kerja dan tujuannya. 
+BCryptPasswordEncoder disediakan oleh Spring Security. BCryptPasswordEncoder menyediakan fungshi hashing BCrypt untung mengenkripsi password. Jadi, id dan password user tidak akan terlihat raw di database, tetapu yang terlihat adalah hasil enkripsinya. Proses ini melibatkan algoritma "one-way-hasing" atau pengenkripsian satu arah, yang artinya ketika password sudah dienkripsi, maka tidak dapat lagi dikembalikan ke bentuk semula atau didekripsi. 
+
+
+3. Jelaskan secara singkat apa itu UUID beserta penggunaannya!
+Universally Unique Identifiers atau UUID adalah angka 128 bit, yang terdiri dari 16 octets dan direpresentasikan dalam 32 base-16 karakter. UUID bersifat unique dan memiliki kemungkinan duplikasi yang rendah. Dalam waktu singkat saja, jika di-generate ribuan UUID, kecil kemungkinan ada UUID yang sama sehingga UUID cocok untuk digunakan sebagai Primary Key. Pada tutorial ini, UUID diimplementasikan untuk penambahan role. Ketika kita menambahkan user,  sistem generate id dengan sistem UUID. 
+
+4.  Apa kegunaan class UserDetailsServiceImpl.java? Mengapa harus ada class tersebut padahal kita sudah memiliki class UserRoleServiceImpl.java?
+UserDetailsServiceImpl.java berguna untuk menyediakan informasi otentikasi dan otorisasi user. Spring Boot Security menggunakan class ini untuk otorisasi user yang melakukan login sesuai dengan role yang sudah terdaftar di database. UserDetailsServiceImpl.java juga berguna untuk mengatur aksesibilitas setiap user. Pada UserDetailsService didefinisikan
+    Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+    grantedAuthorities.add(new SimpleGrantedAuthority(userModel.getRole().getRole()));
+Sehingga, kita dapat membatasi akses user di WebSecurityConfig.java
+        .antMatchers("/hotel/**").hasAuthority("RECEPTIONIST")
+        .antMatchers("/kamar/addMultiple").hasAuthority("RECEPTIONIST")
+        .antMatchers("/user/addUser").hasAuthority("ADMIN")
+
+### What i have learned today:
+Spring Security sendiri adalah salah satu project dari framework Spring dengan banyak fitur-fitur menarik: key authentication dengan LDAP, SSO, JAAS dan lain-lain. Fitur yang dimanfaatkan pada tutorial kali ini adalah authentication dan authorization. Pada tutorial ini saya belajar bagaimana cara mengintegrasikan Spring Security dengan Spring MVC web untuk mengamankan akses ke sebuah URL. 
+
+### What i dont understand:
+1. Apa itu user yang digenerate pada UserDetailsServiceImpl.java?
+new User(userModel.getUsername(), userModel.getPassword(), grantedAuthorities);
+apa bedanya dengan UserModel?
+2. Bagaimana cara mengakses authorized di html tanpa #httpServletRequest.userPrincipal ?
+
+
+
+
+
+
+
+
+
 
 
 
