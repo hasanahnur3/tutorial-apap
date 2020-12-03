@@ -31,6 +31,9 @@ package apap.tutorial.traveloke.service;
 
 import apap.tutorial.traveloke.model.UserModel;
 import apap.tutorial.traveloke.repository.UserDb;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -71,5 +74,10 @@ public class UserServiceImpl implements UserService{
         boolean atleastOneNumber = password.matches(".*[0-9]+.*");
         boolean atleastEightChar = password.length() >= 8;
         return atleastOneAlpha && atleastOneNumber && atleastEightChar;
+    }
+
+    @Override
+    public List<UserModel> getListUser() {
+        return userDb.findAll();
     }
 }

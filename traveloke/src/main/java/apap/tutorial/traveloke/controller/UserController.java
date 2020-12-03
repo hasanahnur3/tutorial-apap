@@ -1,5 +1,7 @@
 package apap.tutorial.traveloke.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,12 @@ public class UserController {
 
     @RequestMapping(value="/addUser", method= RequestMethod.POST)
     public String addUserSubmit(@ModelAttribute UserModel user, Model model){
+        List<UserModel> listUser = userService.getListUser();
+        for(UserModel a: listUser){
+            if(a.getUsername().equals(user.getUsername())){
+                return "redirect:/";
+            }
+        }
         if(userService.checkPassword(user.getPassword()) == true){
             userService.addUser(user);
             model.addAttribute("user", user);
@@ -38,12 +46,17 @@ public class UserController {
         System.out.println("aaaaa   " + oldPassword);
         System.out.println("aaaaa   " + newPassword);
         System.out.println("aaaaa   " + confirmNewPassword);
+
         if (userService.isMatch(oldPassword, myUser.getPassword())){
             if (newPassword.equals(confirmNewPassword)){
                 if(userService.checkPassword(newPassword) == true){
-                    myUser.setPassword(newPassword);
-                    userService.addUser(myUser);
-                    model.addAttribute("msg2", "password berhasil diubah");
+                    if(userService.isMatch(newPassword, myUser.getPassword())){
+                        model.addAttribute("msg2", "password baru dan lama sama");
+                    }else{
+                        myUser.setPassword(newPassword);
+                        userService.addUser(myUser);
+                        model.addAttribute("msg2", "password berhasil diubah");
+                    }
                 }else{
                     model.addAttribute("msg2", "password harus mengandung angka dan huruf serta memiliki minimal 8 karakter");
                 }
