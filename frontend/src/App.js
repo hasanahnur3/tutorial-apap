@@ -11,7 +11,8 @@ export default class App extends React.Component {
     hideButton: false
   };
 
-  render() {
+
+render() {
     const { favItems } = this.state;
     return(
       <div className="container-fluid">
@@ -47,22 +48,6 @@ export default class App extends React.Component {
             </div>
             </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <div className="container pt-3">
           <div className="row">

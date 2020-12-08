@@ -268,10 +268,26 @@ Sehingga, kita dapat membatasi akses user di WebSecurityConfig.java
 Spring Security sendiri adalah salah satu project dari framework Spring dengan banyak fitur-fitur menarik: key authentication dengan LDAP, SSO, JAAS dan lain-lain. Fitur yang dimanfaatkan pada tutorial kali ini adalah authentication dan authorization. Pada tutorial ini saya belajar bagaimana cara mengintegrasikan Spring Security dengan Spring MVC web untuk mengamankan akses ke sebuah URL. 
 
 ### What i dont understand:
-1. Apa itu user yang digenerate pada UserDetailsServiceImpl.java?
+**1. Apa itu user yang digenerate pada UserDetailsServiceImpl.java?
 new User(userModel.getUsername(), userModel.getPassword(), grantedAuthorities);
-apa bedanya dengan UserModel?
+apa bedanya dengan UserModel?**
 2. Bagaimana cara mengakses authorized di html tanpa #httpServletRequest.userPrincipal ?
+
+
+ > <input type={checked ?  "checkbox" : "hidden"} className="ml-2"
+ >                           checked={checked}
+ >                        onChange={handleChange} />'''
+
+```javascript
+var preview = new Box.Preview();
+preview.show('FILE_ID', 'ACCESS_TOKEN', {
+  container: '.preview-container',
+  showAnnotations: true,
+});
+```
+
+
+
 
 
 
