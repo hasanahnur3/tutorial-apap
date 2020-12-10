@@ -1,8 +1,8 @@
-hotel {
+.hotel {
     border-radius: 4px;
     background-color: white;
-    border: 1px solid grey;
+    border: 0.5px solid rgb(231, 231, 231);
     padding: 16px;
-margin: 20px 0;
-box-sizing: border-box;
+    margin: 20px 0;
+    box-sizing: border-box;
 }
