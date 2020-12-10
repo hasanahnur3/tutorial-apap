@@ -252,6 +252,7 @@ import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import classes from "./styles.module.css";
 import APIConfig from "../../api/APIConfig";
+import ReactPaginate from 'react-paginate';
 
 class HotelList extends Component {
 constructor(props) {
@@ -280,6 +281,9 @@ this.state = {
     isLoading: false,
     isCreate: false,
     isEdit: false,
+    offset: 0,
+    perPage: 5,
+    currentPage: 0,
     textFilter: "",
     namaHotel: "",
     alamat: "",
@@ -293,8 +297,23 @@ this.state = {
     this.handleEditHotel = this.handleEditHotel.bind(this);
     this.handleSubmitEditHotel = this.handleSubmitEditHotel.bind(this);
     this.handleDeleteHotel = this.handleDeleteHotel.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleChangeFieldFilter = this.handleChangeFieldFilter.bind(this);
 
 }
+
+handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+
+    this.setState({
+        currentPage: selectedPage,
+        offset: offset
+    }, () => {
+        this.loadData()
+    });
+
+};
 
 async handleDeleteHotel(id) {
     try {
@@ -359,14 +378,38 @@ componentDidMount() {
 }
 
 async loadData() {
-    try {
-    const { data } = await APIConfig.get("/hotels");
-    this.setState({ hotels: data });
-    } catch (error) {
-    alert("Oops terjadi masalah pada server");
-    console.log(error);
-    }
+    await APIConfig.get("/hotels")
+        .then(res => {
+            const data = res.data;
+            const data2 = data.filter(h => h.namaHotel.includes(this.state.textFilter)).map((hotel) => 
+            <Hotel
+            key={hotel.id}
+            listKamar={hotel.listKamar}
+            id={hotel.id}
+            namaHotel={hotel.namaHotel}
+            alamat={hotel.alamat}
+            nomorTelepon={hotel.nomorTelepon}
+            handleEdit={() => this.handleEditHotel(hotel)}
+            handleDelete={() => this.handleDeleteHotel(hotel.id)}
+            />  
+      )
+      const postData = data2.slice(this.state.offset, this.state.offset + this.state.perPage);
+            this.setState({
+                pageCount: Math.ceil(data.length / this.state.perPage),
+                postData
+            })
+        });
 }
+
+// async loadData() {
+//     try {
+//     const { data } = await APIConfig.get("/hotels");
+//     this.setState({ hotels: data });
+//     } catch (error) {
+//     alert("Oops terjadi masalah pada server");
+//     console.log(error);
+//     }
+// }
 
 async handleSubmitAddHotel(event) {
     event.preventDefault();
@@ -396,6 +439,12 @@ handleChangeField(event) {
     const { name, value } = event.target;
     this.setState({ [name]: value });
 }
+
+handleChangeFieldFilter(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+    this.loadData();
+}
     
 
     render() {
@@ -424,11 +473,11 @@ handleChangeField(event) {
         placeholder="Cari Hotel"
         name="textFilter"
         value={this.state.textFilter}
-        onChange={this.handleChangeField}
+        onChange={this.handleChangeFieldFilter}
         />
 
         <div>
-        {this.state.hotels.filter(h => h.namaHotel.includes(this.state.textFilter)).map((hotel) => (
+        {/* {this.state.hotels.filter(h => h.namaHotel.includes(this.state.textFilter)).map((hotel) => (
         <Hotel
         key={hotel.id}
         listKamar={hotel.listKamar}
@@ -439,7 +488,22 @@ handleChangeField(event) {
         handleEdit={() => this.handleEditHotel(hotel)}
         handleDelete={() => this.handleDeleteHotel(hotel.id)}
         />
-        ))}
+        ))} */}
+
+                {this.state.postData}
+                <ReactPaginate
+                    previousLabel={"prev"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={this.state.pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={classes.pagination}
+                    subContainerClassName={classes.pagination, classes.page}
+                    activeClassName={classes.active}/>
+
         </div>
 
         <Modal show={this.state.isCreate || this.state.isEdit} handleCloseModal={this.handleCancel}>
