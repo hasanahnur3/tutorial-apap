@@ -388,6 +388,54 @@ preview.show('FILE_ID', 'ACCESS_TOKEN', {
   showAnnotations: true,
 });
 ```
+---
+## Tutorial 7
+
+1. Ceritakan langkah - langkah yang kalian lakukan untuk solve LATIHAN no.1, dan mengapa kalian
+melakukan langkah - langkah tersebut?
+Hal yang saya lakukan adalah menambahkan fungsi handleCancel menjadi seperti berikur
+```handleCancel(event) {
+    event.preventDefault();
+    this.setState({ isCreate: false, isEdit: false });
+    this.setState({ namaHotel: "" });
+    this.setState({ alamat: "" });
+    this.setState({ nomorTelepon: "" });
+}
+```
+Seluruh state yang berhubungan dengan field hotel di set kembali menjadi "" karena setiap kali kita membuat hotel / mengedit hotel,
+fungsi handleCancel akan dipanggil juga. Sehingga, bila kita mengakses form kembali, data yang sebelumnya tidak akan muncul.
+
+2. Jelaskan fungsi dari async dan await!
+Async adalah metode untuk membuat code asinkronus di javascript. Pada tutorial ini, saya mengimplementasi hal tersebut menggunakan Promise-based HTTP client Axios. Promise-based HTTP client me-returns promises, bukan accepting callbacks. Awalnya hanya ada callback untuk menghandle pemanggilan asinkronus, namun callback dapat membuat code menjadi messy dan sulit untuk dimengerti sehingga terbuatlah promise. Fungsi dengan async didepannya akan mereturn sebuah promise, dan memuat objek non-promise didalamnya.
+Fungsi dengan async juga dapat memiliki await didalamnya. Fungsi dari await adalah menunggu promise agar terkumpul secara komplit baru fungsi async akan me return promise tersebut.
+Pada tutorial ini, promise yang dimaksud adalah listhotel yang diambil dari api yang telah dibuat pada tutorial sebelumnya
+
+
+3. Masukkan jawaban dari Screenshot yang diperintahkan di halaman 7 pada Component Lifecycle
+pada pertanyaan ini.
+
+
+4. Jelaskan fungsi dari componentDidMount, shouldComponentUpdate,
+componentDidUpdate, componentWillReceiveProps,
+componentWillUnmount.
+Notes : Penjelasan harus mencantumkan “kapan fungsi dipanggil” dan “use case apa saja
+yang biasanya menggunakan lifecycle method tersebut”.
+
+componentDidmount adalah fase siklus react ketika pertama kali DOM di render. Pada fase ini, kita dapat melakukan operasi sebelum elemen js dimuat. Pada tutorial ini, saya menggunakan componentDidmount untu menampilkan list hotel
+```componentDidMount() {
+    console.log("componentDidMount()");
+    this.loadData();
+}```
+
+componentWillMount adalah fase di mana semua data atau operasi di destroy. Misal ada sebuah interval pada halamn A. Saat user pergi ke halaman B, maka interval A harus di destroy dengan componentWillMount. Jika tidak, maka operasi tersebut akan berjalan di screen atau page lain.
+
+componentDidUpdate dipanggil setelah fungsi render setelah mengganti sebuah objek. Fungsi ini dapat digunakan untuk melakukan operasi DOM setelah data telah diperbaharui.
+
+### What i have learned today:
+Saya menjadi paham bagaimana cara frontend berinteraksi dengan backend. Salah satu caranya adalah dengan menggunakan http post, get, dsb menggunakan axios. Saya juga belajar untuk menambahkan cors untuk memungkinkan transfer data antara frontend dan backend. Tutorial kali ini juga membuat saya menjadi lebih paham syntax dari javascript.
+
+### What i dont understand
+1. Bagaimana cara membuat pagination tanpa react pagination?
 
 
 
