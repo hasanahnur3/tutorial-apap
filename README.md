@@ -204,7 +204,7 @@ Pada lab kali ini saya belajar pada sisi client side untuk membuat tampilan baik
 3. Bagaimana cara tahu row yang diselect di html dan memberitahukannya ke controller?
 
 ---
-## Tutorial 4
+## Tutorial 5
 
 1. Apa itu Postman? Apa kegunaannya?
 Postman adalah sebuat tool yang dapat digunakan untuk memakai / mengetes RESTful API yang dibuat orang lain atau dibuat oleh kita sendiri. Postman menyediakan user interface untuk membuat HTML request tanpa kita harus menulis kode - kode untuk mengetes fungsionalitas sebuah API. Selain itu, postman juga menyediakan user interface untuk membaca response yang didapat. Request yang dapat dilakukan pada postman adalah GET, POST, PUT, DELETE, dan - lain lain. Postman juga dapat mensupport request dengan parameter.
@@ -241,7 +241,7 @@ REST (Representional State Transfer) adalah suatu arsitektur metode komunikasi y
 2. Bagaimana cara memberikan interface / frontend pada tutorial ini?
 
 ---
-## Tutorial 5
+## Tutorial 6
 
 1. Jelaskan secara singkat perbedaan Otentikasi dan Otorisasi! Di bagian mana (dalam kode yang telah anda
 buat) konsep tersebut diimplementasi?
@@ -273,6 +273,109 @@ new User(userModel.getUsername(), userModel.getPassword(), grantedAuthorities);
 apa bedanya dengan UserModel?**
 2. Bagaimana cara mengakses authorized di html tanpa #httpServletRequest.userPrincipal ?
 
+---
+## Tutorial 7
+
+1. Jelaskan apa yang Anda lakukan di latihan dalam satu paragraf per-soal. Berikan screenshot sebagai ilustrasi
+dari apa yang Anda jelaskan.
+
+**Latihan 1**
+Pada soal no 1, saya menghilangkan checkbox yang ada pada section kiri. Namun, tidak diperbolehkan untuk membuat component baru. Checkbox tidak bisa dihilangkan begitu saja oleh component karena masih akan digunakan oleh section yang sebelah kiri. Oleh karena itu, saya mengatasinya dengan memberikan conditional pada tag input
+
+```<input type={checked ?  "checkbox" : "hidden"} className="ml-2"
+                            checked={checked}
+                            onChange={handleChange} />
+```
+
+**Latihan 2** 
+Pada soal kedua, saya membuat button clear all fav. Button ini tidak akan muncul apabila isi list favorite kosong.Untuk menyimpan state ditampilkan atau tidaknya button tersebut, saya membuat state clearButton
+Berikut adalah code untuk menambah button
+```            <button
+                hidden={this.state.clearButton}
+                className="btn btn-primary"
+                onClick={this.clearAll}
+              > Clear All Favorites </button>
+```
+Berikut adalah code dari clearAll, yang berfungsi untuk mengosongkan state list favorite
+```  clearAll = () => {
+    this.setState({ favItems: [], clearButton: true });
+  };
+```
+Setiap ada yang dimasukkan ke list fav, saya juga mengupdate state clearButton menjadi false agar tidak di-hidden
+```this.setState({favItems: newItems, clearButton: false});
+```
+Saya juga melakukan pengecekan apabila state list favorite isinya kosong, maka state clearButton saya ubah menjadi true agar di-hidden
+```    if(newItems.length == 0){
+      this.setState({clearButton: true});
+    }
+```
+
+**Latihan 3** 
+Pada soal ini, saya membuat item pada section sebelah kiri hanya bisa add ke section sebelah kanan, namun bida ditekan kembali, section di kanan tidak akan terdelete. untuk itu, saya memisahkan handler untul list section kiri dan kanan pada App.js. Lalu, untuk handler section yang kiri, sayang menghilangkan line code untuk menghapus item tersebut daru array state list favorite
+```newItems.splice(targetInd, 1);
+```
+
+**Latihan 4** 
+Pada soal ini, saya membuat input toggle untuk menyembunyikan section sebelah kanan. Untuk itu, saya membuat state baru untuk menyimpan state ditampilkan atau tidaknya section sebelah kanan, yaitu hideButton.
+Berikut adalah code untuk menambahkan input toggle
+```
+                <input
+                  type="checkbox"
+                  checked={this.state.favHidden}
+                  data-toggle="toggle"
+                  onChange={this.handleToggle}
+                  className="form-check-input"
+                  id="exampleCheck1"
+                />
+```
+Berikut adalah code dari handleToggle yang akan mengganti state dari hideButton
+```  handleToggle = () => {
+    const favHidden = this.state.hideButton;
+    this.setState({ hideButton: !favHidden });
+  };
+```
+Kemudian, pada bagian code html yang menampilkan section sebelah kanan, saya menambahkan conditional
+```<div className="col-sm">
+            {this.state.hideButton ? null :
+                        
+                        <List
+                          title="My Favorites"
+                          items={this.state.favItems}
+                          onItemClick={this.handleItemClickRight}
+                        />
+                      
+            }
+            </div>
+```
+**Latihan 4** 
+Pada latihan ini, saya menampilkan message apabila list section sebelah kanan masih kosong isinya. Berikut adalah potongan code conditional yang saya tambahkan pada index.js List
+```            {items.length == 0 ? (
+          <div className="text-center">
+            <h4>Belum ada item yang dipilih</h4>
+            <h5>Klik salah satu item di List Movies</h5>
+          </div>
+        ) : null}
+```
+
+2. Menurut pemahaman kamu selama pengerjaan tutorial ini, apa perbedaan antara state dan props?
+State merupakan data yang disimpan pada component. State sifatnya private dan hanya relevan terhadap component itu sendiri. Sedangkan props adalah properti yang valuenya dilempar dari component lain. State justru dapat menyimpan dan mengubah datanya sendiri. State hanya dimiliki oleh class component.
+
+3. Apa keuntungan menggunakan component (e.g. List, Item) di React? Berikan contohnya!
+Keuntungan menggunakan component aspek reusabilitynya. Setiap component, seperti Item dan List memiliki logic dan mengontrol proses renderingnya sendiri. Dengan implementasi component, kita dapat mengembangkan app kita dengan mudah. Selain itu, kita juga dapat mengatasi perubahan yang terjadi dengan mudah apabila kita menggunakan component.
+
+
+4. Menurut kamu, apa saja kelebihan menggunakan React dalam pengembangan web?
+React dapat memberikan banyak kemudahan, salah satunya adalah Komponen yang reusable. Selain itu, virtual DOM yang dapat meningkatkan kecepatan rendering. Terdapat developer toolset yang sangat membantu seperti React Dev Tools pada Google Chrome, dan lain -lain.
+
+
+5. Menurut kamu, apa saja kekurangan menggunakan React dalam pengembangan web?
+Kekurangan dari react salah satunya adalah ukuran library yang besar. Selain itu, saya sulit memahami alur dan juga syntax pemrograman yang digunakan pada react karena belum familiar dengan javascript sebelumnya.
+
+### What i have learned today:
+React adalah library Javascript terpopuler untuk membuat user interface (UI). React bukan framework MVC. React adalah library yang bersifat composable user interface, yang artinya kita dapat membuat berbagai UI yang bisa kita bagi menjadi beberapa komponen.
+
+### What i dont understand:
+1. Saya masih kurang familiar dengan component function
 
  > <input type={checked ?  "checkbox" : "hidden"} className="ml-2"
  >                           checked={checked}

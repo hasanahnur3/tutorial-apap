@@ -19,21 +19,7 @@ function App() {
  const [favItems, setFavItems] = useState(() => []);
  const [buttonHidden, setButtonHidden] = useState(true);
  const [favoriteHidden, setFavoriteHidden] = useState(false);
- const [darkMode, setDarkMode] = useState(getInitialState());
-
-useEffect(() => {
-  localStorage.setItem('background', JSON.stringify(darkMode))
-}, [darkMode])
-
-function getInitialState(){
-   const saved = JSON.parse(localStorage.getItem('background'));
-   return saved || false;
-}
-
-function changeTheme() {
-   setDarkMode(!darkMode);
-}
-
+ 
  function handleItemClick(item) {
  // immutability
  const newItems = [...favItems];
@@ -70,7 +56,7 @@ function handleToggle() {
   }
 
  return (
-    <div className={darkMode ? "container-fluid dark-mode" : "container-fluid light-mode"}>
+    <div className="container-fluid">
     <div className="container-fluid">
       <h1 className="text-center mt-3 mb-0">Favorites Movie App</h1>
             <p className="text-center text-secondary text-sm font-italic">
@@ -80,15 +66,6 @@ function handleToggle() {
         <div className="row">
           <div className="col-sm text-center">
             <div className="form-check">
-
-            <div className="d-flex justify-content-center align-items-center">
-               <label className="switch">
-                  <input type="checkbox" onClick={changeTheme} />
-                  <span className="slider round"></span>
-               </label>
-               <h4 className="fav-margin space">Change Theme</h4>
-            </div>
-
               <input
                 type="checkbox"
                 checked={favoriteHidden ? true : false}
