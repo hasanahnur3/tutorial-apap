@@ -431,6 +431,7 @@ handleChangeField(event) {
         {this.state.hotels.filter(h => h.namaHotel.includes(this.state.textFilter)).map((hotel) => (
         <Hotel
         key={hotel.id}
+        listKamar={hotel.listKamar}
         id={hotel.id}
         namaHotel={hotel.namaHotel}
         alamat={hotel.alamat}
