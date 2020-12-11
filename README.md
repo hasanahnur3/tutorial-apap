@@ -413,7 +413,9 @@ Pada tutorial ini, promise yang dimaksud adalah listhotel yang diambil dari api 
 
 3. Masukkan jawaban dari Screenshot yang diperintahkan di halaman 7 pada Component Lifecycle
 pada pertanyaan ini.
-
+![alt text](https://i.ibb.co/6sWR8vD/tutor8.png)
+Pada step ini, ketika component dirender, componentDidMount akan diapnggil. Ketika state diubah, sehingga component harus dirender ulang, maka method
+shouldComponentUpdate akan dipanggil untuk mengetahui apakah component perlu dirender ulang atau tidak. shouldComponentUpdate akan return true apabila component harus diupdate
 
 4. Jelaskan fungsi dari componentDidMount, shouldComponentUpdate,
 componentDidUpdate, componentWillReceiveProps,
@@ -430,6 +432,13 @@ componentDidmount adalah fase siklus react ketika pertama kali DOM di render. Pa
 componentWillMount adalah fase di mana semua data atau operasi di destroy. Misal ada sebuah interval pada halamn A. Saat user pergi ke halaman B, maka interval A harus di destroy dengan componentWillMount. Jika tidak, maka operasi tersebut akan berjalan di screen atau page lain.
 
 componentDidUpdate dipanggil setelah fungsi render setelah mengganti sebuah objek. Fungsi ini dapat digunakan untuk melakukan operasi DOM setelah data telah diperbaharui.
+
+shouldComponentUpdate mempercepat proses render sehingga suatu component tidak perlu render ulang di step selanjutnya. Jika di beberapa kejadian program menemukan bahwa component tidak perlu diupdate, method ini dapat mereturn nilai false sehingga component tidak akan mengalami proses render kembali.
+
+componentWillReceiveProps method jika ingin memperbarui nilai status dengan nilai props baru. Method ini akan dipanggil setiap kali akan terjadi perubahan pada nilai props
+
+componentWillUnmount method ini menghilangkan suatu komponen karena ada perubahan pada state. Method ini mengatur unmounting dari component yang akan dihilangkan. Method ini dipanggil saat komponen akan dihilangkan dari DOM. Pada method ini dapat diimplementasi penghapusan objek lainnya.
+
 
 ### What i have learned today:
 Saya menjadi paham bagaimana cara frontend berinteraksi dengan backend. Salah satu caranya adalah dengan menggunakan http post, get, dsb menggunakan axios. Saya juga belajar untuk menambahkan cors untuk memungkinkan transfer data antara frontend dan backend. Tutorial kali ini juga membuat saya menjadi lebih paham syntax dari javascript.
