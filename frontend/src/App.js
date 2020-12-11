@@ -11,7 +11,8 @@ export default class App extends React.Component {
     hideButton: false
   };
 
-  render() {
+
+render() {
     const { favItems } = this.state;
     return(
       <div className="container-fluid">

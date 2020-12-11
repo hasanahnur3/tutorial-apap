@@ -268,9 +268,9 @@ Sehingga, kita dapat membatasi akses user di WebSecurityConfig.java
 Spring Security sendiri adalah salah satu project dari framework Spring dengan banyak fitur-fitur menarik: key authentication dengan LDAP, SSO, JAAS dan lain-lain. Fitur yang dimanfaatkan pada tutorial kali ini adalah authentication dan authorization. Pada tutorial ini saya belajar bagaimana cara mengintegrasikan Spring Security dengan Spring MVC web untuk mengamankan akses ke sebuah URL. 
 
 ### What i dont understand:
-1. Apa itu user yang digenerate pada UserDetailsServiceImpl.java?
+**1. Apa itu user yang digenerate pada UserDetailsServiceImpl.java?
 new User(userModel.getUsername(), userModel.getPassword(), grantedAuthorities);
-apa bedanya dengan UserModel?
+apa bedanya dengan UserModel?**
 2. Bagaimana cara mengakses authorized di html tanpa #httpServletRequest.userPrincipal ?
 
 ---
@@ -376,6 +376,79 @@ React adalah library Javascript terpopuler untuk membuat user interface (UI). Re
 
 ### What i dont understand:
 1. Saya masih kurang familiar dengan component function
+
+ > <input type={checked ?  "checkbox" : "hidden"} className="ml-2"
+ >                           checked={checked}
+ >                        onChange={handleChange} />'''
+
+```javascript
+var preview = new Box.Preview();
+preview.show('FILE_ID', 'ACCESS_TOKEN', {
+  container: '.preview-container',
+  showAnnotations: true,
+});
+```
+---
+## Tutorial 7
+
+1. Ceritakan langkah - langkah yang kalian lakukan untuk solve LATIHAN no.1, dan mengapa kalian
+melakukan langkah - langkah tersebut?
+Hal yang saya lakukan adalah menambahkan fungsi handleCancel menjadi seperti berikur
+```handleCancel(event) {
+    event.preventDefault();
+    this.setState({ isCreate: false, isEdit: false });
+    this.setState({ namaHotel: "" });
+    this.setState({ alamat: "" });
+    this.setState({ nomorTelepon: "" });
+}
+```
+Seluruh state yang berhubungan dengan field hotel di set kembali menjadi "" karena setiap kali kita membuat hotel / mengedit hotel,
+fungsi handleCancel akan dipanggil juga. Sehingga, bila kita mengakses form kembali, data yang sebelumnya tidak akan muncul.
+
+2. Jelaskan fungsi dari async dan await!
+Async adalah metode untuk membuat code asinkronus di javascript. Pada tutorial ini, saya mengimplementasi hal tersebut menggunakan Promise-based HTTP client Axios. Promise-based HTTP client me-returns promises, bukan accepting callbacks. Awalnya hanya ada callback untuk menghandle pemanggilan asinkronus, namun callback dapat membuat code menjadi messy dan sulit untuk dimengerti sehingga terbuatlah promise. Fungsi dengan async didepannya akan mereturn sebuah promise, dan memuat objek non-promise didalamnya.
+Fungsi dengan async juga dapat memiliki await didalamnya. Fungsi dari await adalah menunggu promise agar terkumpul secara komplit baru fungsi async akan me return promise tersebut.
+Pada tutorial ini, promise yang dimaksud adalah listhotel yang diambil dari api yang telah dibuat pada tutorial sebelumnya
+
+
+3. Masukkan jawaban dari Screenshot yang diperintahkan di halaman 7 pada Component Lifecycle
+pada pertanyaan ini.
+![alt text](https://i.ibb.co/6sWR8vD/tutor8.png)
+Pada step ini, ketika component dirender, componentDidMount akan diapnggil. Ketika state diubah, sehingga component harus dirender ulang, maka method
+shouldComponentUpdate akan dipanggil untuk mengetahui apakah component perlu dirender ulang atau tidak. shouldComponentUpdate akan return true apabila component harus diupdate
+
+4. Jelaskan fungsi dari componentDidMount, shouldComponentUpdate,
+componentDidUpdate, componentWillReceiveProps,
+componentWillUnmount.
+Notes : Penjelasan harus mencantumkan “kapan fungsi dipanggil” dan “use case apa saja
+yang biasanya menggunakan lifecycle method tersebut”.
+
+componentDidmount adalah fase siklus react ketika pertama kali DOM di render. Pada fase ini, kita dapat melakukan operasi sebelum elemen js dimuat. Pada tutorial ini, saya menggunakan componentDidmount untu menampilkan list hotel
+```componentDidMount() {
+    console.log("componentDidMount()");
+    this.loadData();
+}```
+
+componentWillMount adalah fase di mana semua data atau operasi di destroy. Misal ada sebuah interval pada halamn A. Saat user pergi ke halaman B, maka interval A harus di destroy dengan componentWillMount. Jika tidak, maka operasi tersebut akan berjalan di screen atau page lain.
+
+componentDidUpdate dipanggil setelah fungsi render setelah mengganti sebuah objek. Fungsi ini dapat digunakan untuk melakukan operasi DOM setelah data telah diperbaharui.
+
+shouldComponentUpdate mempercepat proses render sehingga suatu component tidak perlu render ulang di step selanjutnya. Jika di beberapa kejadian program menemukan bahwa component tidak perlu diupdate, method ini dapat mereturn nilai false sehingga component tidak akan mengalami proses render kembali.
+
+componentWillReceiveProps method jika ingin memperbarui nilai status dengan nilai props baru. Method ini akan dipanggil setiap kali akan terjadi perubahan pada nilai props
+
+componentWillUnmount method ini menghilangkan suatu komponen karena ada perubahan pada state. Method ini mengatur unmounting dari component yang akan dihilangkan. Method ini dipanggil saat komponen akan dihilangkan dari DOM. Pada method ini dapat diimplementasi penghapusan objek lainnya.
+
+
+### What i have learned today:
+Saya menjadi paham bagaimana cara frontend berinteraksi dengan backend. Salah satu caranya adalah dengan menggunakan http post, get, dsb menggunakan axios. Saya juga belajar untuk menambahkan cors untuk memungkinkan transfer data antara frontend dan backend. Tutorial kali ini juga membuat saya menjadi lebih paham syntax dari javascript.
+
+### What i dont understand
+1. Bagaimana cara membuat pagination tanpa react pagination?
+
+
+
+
 
 
 

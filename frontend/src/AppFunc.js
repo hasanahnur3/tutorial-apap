@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import List from "./components/List";
 import listMovies from "movies.json";
+// import React, { useState, useEffect } from 'react';
 import "./App.css";
 /**
 * Building React component using functional programming paradigm

@@ -35,6 +35,7 @@ public class HotelRestServiceImpl implements HotelRestService {
 
     @Override
     public HotelModel createHotel(HotelModel hotel) {
+        System.out.println("AAA masuk");
         return hotelDb.save(hotel);
     }
 
